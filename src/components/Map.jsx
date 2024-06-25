@@ -11,7 +11,7 @@ const center = {
   lng: -38.523
 };
 
-const Map = ({ isLoaded, onLoad, onUnmount, origin, destination, stop, directionsResponse, directionsCallback, travelMode}) => {
+const Map = memo(({ isLoaded, onLoad, onUnmount, origin, destination, stop, directionsResponse, directionsCallback, travelMode}) => {
   
   return (
     <div className='w-full flex items-center justify-center mt-10 md:mx-5'>
@@ -39,6 +39,6 @@ const Map = ({ isLoaded, onLoad, onUnmount, origin, destination, stop, direction
       ) : null}
     </div>
   );
-};
+});
 
 export default Map;
