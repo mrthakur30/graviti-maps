@@ -56,7 +56,7 @@ const Form = ({ setOrigin, setDestination, setStop, distance, setDirectionsRespo
         setStopValue(address, false);
         clearStopSuggestions();
         const coordinates = await addressToCoordinates(address);
-      
+
         setStop((prev) => [...prev, {
             location: coordinates,
             stopover: true,
@@ -78,50 +78,56 @@ const Form = ({ setOrigin, setDestination, setStop, distance, setDirectionsRespo
     return (
         <div className='px-4 md:mx-5 md:w-3/4'>
             <form className='flex flex-col'>
-                <label className='text-slate-600 mt-4 mb-1'>Origin</label>
-                <input
-                    type="text"
-                    value={originValue}
-                    onChange={(e) => setOriginValue(e.target.value)}
-                    disabled={!originReady}
-                    placeholder="Origin"
-                    className='rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-12'
-                />
-                {originStatus === 'OK' && (
-                    <ul className='bg-white rounded p-2 divide-y cursor-pointer select-none'>
-                        {originData.map(({ place_id, description }) => (
-                            <li key={place_id} onClick={() => handleOriginSelect(description)}>
-                                {description}
-                            </li>
-                        ))}
-                    </ul>
-                )}
 
-                <label className='text-slate-600 mt-4 mb-1'>Stop</label>
-                <input
-                    type="text"
-                    value={stopValue}
-                    onChange={(e) => setStopValue(e.target.value)}
-                    disabled={!stopReady}
-                    placeholder="Add Stops"
-                    className='rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-12'
-                />
-                {stopStatus === 'OK' && (
-                    <ul className='bg-white rounded p-2 divide-y cursor-pointer select-none'>
-                        {stopData.map(({ place_id, description }) => (
-                            <li key={place_id} onClick={() => handleStopSelect(description)}>
-                                {description}
-                            </li>
-                        ))}
-                    </ul>
-                )}
+                <div className='relative flex flex-col'>
+                    <label className='text-slate-600 mt-4 mb-1'>Origin</label>
+                    <input
+                        type="text"
+                        value={originValue}
+                        onChange={(e) => setOriginValue(e.target.value)}
+                        disabled={!originReady}
+                        placeholder="Origin"
+                        className='rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-12'
+                    />
+                    {originStatus === 'OK' && (
+                        <ul className='bg-white rounded p-2 divide-y cursor-pointer select-none absolute z-10 top-24 border'>
+                            {originData.map(({ place_id, description }) => (
+                                <li key={place_id} onClick={() => handleOriginSelect(description)}>
+                                    {description}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
+                <div className='relative flex flex-col'>
+                    <label className='text-slate-600 mt-4 mb-1'>Stop</label>
+                    <input
+                        type="text"
+                        value={stopValue}
+                        onChange={(e) => setStopValue(e.target.value)}
+                        disabled={!stopReady}
+                        placeholder="Add Stops"
+                        className='rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-12'
+                    />
+                    {stopStatus === 'OK' && (
+                        <ul className='bg-white rounded p-2 divide-y cursor-pointer select-none absolute z-10 top-24 border'>
+                            {stopData.map(({ place_id, description }) => (
+                                <li key={place_id} onClick={() => handleStopSelect(description)}>
+                                    {description}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                </div>
 
 
                 <ul className=' '>
                     {stops.map((stop, index) => (
-                        <li 
-                        key={index}                     
-                        className='flex items-center justify-between bg-white rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-8 my-1 '
+                        <li
+                            key={index}
+                            className='flex items-center justify-between bg-white rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-8 my-1 '
                         >
                             {stop.description}
                             <button
@@ -135,24 +141,27 @@ const Form = ({ setOrigin, setDestination, setStop, distance, setDirectionsRespo
                     ))}
                 </ul>
 
-                <label className='text-slate-600 mt-4 mb-1'>Destination</label>
-                <input
-                    type="text"
-                    value={destinationValue}
-                    onChange={(e) => setDestinationValue(e.target.value)}
-                    disabled={!destinationReady}
-                    placeholder="Destination"
-                    className='rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-12'
-                />
-                {destinationStatus === 'OK' && (
-                    <ul className='bg-white rounded p-2 divide-y cursor-pointer select-none'>
-                        {destinationData.map(({ place_id, description }) => (
-                            <li key={place_id} onClick={() => handleDestinationSelect(description)}>
-                                {description}
-                            </li>
-                        ))}
-                    </ul>
-                )}
+
+                <div className='relative flex flex-col'>
+                    <label className='text-slate-600 mt-4 mb-1'>Destination</label>
+                    <input
+                        type="text"
+                        value={destinationValue}
+                        onChange={(e) => setDestinationValue(e.target.value)}
+                        disabled={!destinationReady}
+                        placeholder="Destination"
+                        className='rounded border focus:outline-none border-slate-200 text-black px-4 py-1 text-md w-4/5 md:w-3/4 h-12'
+                    />
+                    {destinationStatus === 'OK' && (
+                        <ul className='bg-white rounded p-2 divide-y cursor-pointer select-none absolute z-10 top-24 border'>
+                            {destinationData.map(({ place_id, description }) => (
+                                <li key={place_id} onClick={() => handleDestinationSelect(description)}>
+                                    {description}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
 
                 <button type="button" onClick={() => setDirectionsResponse(null)} className='bg-blue-800 w-28 my-4 text-white rounded-3xl p-3 text-md'>Calculate</button>
             </form>
